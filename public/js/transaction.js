@@ -5,10 +5,12 @@ let data = {
     transaction: []
 };
 
-document.getElementById("buttom-logout").addEventListener("click", logout);
+document.getElementById("buttom-logout").addEventListener("click", logout)
 
-document.getElementById("transaction-list").addEventListener("submit", function(e) {
-    e.preventDefault();
+//Adicionar Lançamento
+
+document.getElementById("transaction-form").addEventListener("submit", function(e) {
+    e.preventDefault()
 
     const value = parseFloat(document.getElementById("value-input").value)
     const description = document.getElementById("description-input").value
@@ -17,7 +19,7 @@ document.getElementById("transaction-list").addEventListener("submit", function(
 
     data.transaction.unshift({
         value: value, type: type, description: description, date: date
-    });
+    })
 
     saveData(data)
     e.target.reset()
@@ -28,7 +30,7 @@ document.getElementById("transaction-list").addEventListener("submit", function(
 });
 
 checkLogged()
-logout()
+
 
 function checkLogged() {
     if (session) {
@@ -66,11 +68,12 @@ function getTransaction (){
             if(item.type === "2") {
                 type = "Saida"
             }
-            transaction += `
+           
+           transactionHtml += `
             <tr>
                 <th scope="row">${item.date}</th>
-                <td>${item.value.topFixed(2)}</td>
-                td>${type}</td>
+                <td>${item.value.toFixed(2)}</td>
+                <td>${type}</td>
                 <td>${item.description}</td>
             </tr>
 
@@ -79,7 +82,7 @@ function getTransaction (){
         })
 
     }
-    document.getElementById("transaction-list").innerHTML = transaction 
+    document.getElementById("transaction-list").innerHTML = transactionHtml
 
 }
 
